@@ -7,7 +7,7 @@ import { getRankingList } from '../actions'
 const RankingList = props => {
   const [list, setList] = useState([]);
 
-  console.log('props......', props)
+  console.log('props.......', props)
   useEffect(() => {
     console.log('use effect')
     const jsonData = require('../datasets/epl_ranking.json');
