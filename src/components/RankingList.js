@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { connect } from "react-redux";
 
-import { getRankingList } from '../actions'
+import { getRankingList, selectTeam } from '../actions'
 
 const RankingList = props => {
   const [list, setList] = useState([]);
@@ -12,35 +12,56 @@ const RankingList = props => {
     console.log('use effect')
     const jsonData = require('../datasets/epl_ranking.json');
     console.log(jsonData);
-    setTimeout(() => {
-      props.getRankingList(jsonData)
-      setList(jsonData)
-    }, 1000);
-  }, [list]);
+    props.getRankingList(jsonData)
+    setList(jsonData)
+  });
   if (list.length === 0) {
     return <div>로딩중</div>
   } else {
     const renderList = () => {
-      return props.list.map(c => {
+      return props.list.map((c,i) => {
         return (
-          <div className="item" key={c.rank}>
-            <div className="right floated content">
-            </div>
+          <tr >
+            <td data-label="rank">{c.rank}</td>
+            <td data-label="teamName">{c.teamName}</td>
+            <td data-label="gameCount">{c.gameCount}</td>
+            <td data-label="won">{c.won}</td>
+            <td data-label="draw">{c.drawn}</td>
+            <td data-label="lost">{c.lost}</td>
+            <td data-label="detail">
+              <button className="ui primary button" onClick={() => {props.selectTeam(c)}}>
+                Detail
+              </button>
+            </td>
 
-            <div className="content">{c.rank}{c.teamName}</div>
-          </div>
+          </tr>
         )
       })
     }
-    return <div className="ui divided list">{renderList()}</div>
+    return <table className="ui celled table">
+      <thead>
+        <tr>
+          <th>순위</th>
+          <th>이름</th>
+          <th>경기수</th>
+          <th>승</th>
+          <th>무</th>
+          <th>패</th>
+          <th>자세히 보기</th>
+        </tr>
+      </thead>
+      <tbody>
+        {renderList()}
+      </tbody>
+    </table>
   }
 }
 
 
 const mapStateToProps = state => {
-  console.log(state)
-  return { list: state.list }
+  console.log('stae....',state)
+  return { list: state.list, team: state.selectTeam  }
 }
 
 
-export default connect(mapStateToProps, { getRankingList })(RankingList)
+export default connect(mapStateToProps, { getRankingList, selectTeam })(RankingList)

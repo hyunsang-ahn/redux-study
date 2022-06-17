@@ -1,5 +1,6 @@
 import React from "react";
 import RankingList from './RankingList'
+import TeamDetail from './TeamDetail'
 
 const App = () => {
 
@@ -10,7 +11,7 @@ const App = () => {
           <RankingList />
         </div>
         <div className="column eight wide">
-          {/* <SongDetail /> */}
+          <TeamDetail />
         </div>
       </div>
     </div>
