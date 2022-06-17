@@ -7,7 +7,7 @@ const teamDetail = (props) => {
     <>
       { !props.team ? (
         // 선택한 곡이 없을 때 화면
-        <div>Please select a team!</div>
+        <div>Please select a team!!</div>
       ) : (
         // 선택한 곡이 있을 때 화면
         <div>
