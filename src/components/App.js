@@ -10,9 +10,9 @@ const App = () => {
         <div className="column eight wide">
           <RankingList />
         </div>
-        <div className="column eight wide">
+        {/* <div className="column eight wide">
           <TeamDetail />
-        </div>
+        </div> */}
       </div>
     </div>
   )

@@ -3,10 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 
 import { getRankingList, selectTeam } from '../actions'
+import { useNavigate } from "react-router-dom";
 
 const RankingList = props => {
   const [list, setList] = useState([]);
-
+  let navigate = useNavigate();
+  const handleClick = (c) => {
+    props.selectTeam(c);
+    navigate("/about");
+  }
   console.log('props........', props)
   useEffect(() => {
     console.log('use effect')
@@ -19,7 +24,7 @@ const RankingList = props => {
     return <div>로딩중</div>
   } else {
     const renderList = () => {
-      return props.list.map((c,i) => {
+      return props.list.map((c, i) => {
         return (
           <tr >
             <td data-label="rank">{c.rank}</td>
@@ -29,9 +34,10 @@ const RankingList = props => {
             <td data-label="draw">{c.drawn}</td>
             <td data-label="lost">{c.lost}</td>
             <td data-label="detail">
-              <button className="ui primary button" onClick={() => {props.selectTeam(c)}}>
-                Detail
+              <button className="ui primary button" onClick={() => { handleClick(c) }}>
+                about
               </button>
+
             </td>
 
           </tr>
@@ -59,8 +65,8 @@ const RankingList = props => {
 
 
 const mapStateToProps = state => {
-  console.log('stae....',state)
-  return { list: state.list, team: state.selectTeam  }
+  console.log('stae....', state)
+  return { list: state.list, team: state.selectTeam }
 }
 
 
